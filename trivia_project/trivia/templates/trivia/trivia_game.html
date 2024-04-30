@@ -6,16 +6,24 @@
     <title>Trivia Game</title>
 </head>
 <body>
-    <h1>Trivia Game</h1>
-        <form action="{% url 'check_answer' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="question_id" value="{{ question.id }}">
-            <h3>{{ question.text }}</h3>
-            {% for option in question.option_set.all %}
-                <input type="radio" id="option{{ option.id }}" name="option" value="{{ option.id }}">
-                <label for="option{{ option.id }}">{{ option.text }}</label><br>
-            {% endfor %}
-            <button type="submit">Submit</button>
-        </form>
+    {% if question %}
+    <h1>Pregunta:</h1>
+    <p>{{ question.text }}</p>
+    <form method="post" action="{% url 'trivia:trivia' %}">
+        {% csrf_token %}
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+        {% for option in options %}
+        <input type="radio" id="option_{{ option.id }}" name="answer" value="{{ option.id }}">
+        <label for="option_{{ option.id }}">{{ option.text }}</label><br>
+        {% endfor %}
+        <button type="submit">Enviar</button>
+    </form>
+    {% else %}
+    <p>¡Felicidades! Has completado todas las preguntas.</p>
+    <form method="post" action="{% url 'trivia:restart' %}">
+        {% csrf_token %}
+        <button type="submit">Volver a comenzar</button>
+    </form>
+    {% endif %}
 </body>
 </html>
