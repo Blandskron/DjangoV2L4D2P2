@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Game</title>
+</head>
+<body>
+    <h1>Trivia Game</h1>
+        <form action="{% url 'check_answer' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="question_id" value="{{ question.id }}">
+            <h3>{{ question.text }}</h3>
+            {% for option in question.option_set.all %}
+                <input type="radio" id="option{{ option.id }}" name="option" value="{{ option.id }}">
+                <label for="option{{ option.id }}">{{ option.text }}</label><br>
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+</body>
+</html>
