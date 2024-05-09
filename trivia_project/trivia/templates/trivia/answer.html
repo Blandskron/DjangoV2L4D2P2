@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Answer</title>
-</head>
-<body>
-    <h1>{{ message }}</h1>
-    <a href="{% url 'trivia:trivia' %}">Back to Trivia</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Answer{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        <h1 class="text-primary">{{ message }}</h1>
+        <a href="{% url 'trivia:trivia' %}" class="btn btn-secondary mt-3">Volver a Trivia</a>
+    </div>
+{% endblock %}
